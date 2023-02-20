@@ -72,16 +72,16 @@ public class Game {
     }
 
     public void showBoard(PrintStream stream) {
-        stream.println(player2 + "\n__________________________________________________________\n  a\tb\tc\td\te\tf\tg\th");
+        stream.println(player2 + "\n______________________________________\n\ta\tb\tc\td\te\tf\tg\th");
         for (int row = 0; row < 8; row++) {
             for (int col = -1; col < 8; col++) {
                 if (col < 0)
                     stream.print(8 - row);
                 else if (getPiece(row, col) != null)
                     stream.print(getPiece(row, col));
-                stream.print(col == -1 ? "  " : col != 7 ? "\t" : row != 7 ? "\n" : "\n");
+                stream.print(col == -1 ? "\t" : col != 7 ? "\t" : row != 7 ? "\n" : "\n");
             }
         }
-        stream.println("__________________________________________________________\n" + player1);
+        stream.println("______________________________________\n" + player1);
     }
 }

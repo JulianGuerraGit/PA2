@@ -20,9 +20,10 @@ public class Pawn extends Piece {
         if (game.getPiece(move.getRow1(), move.getCol1()) == null) { // moving not capturing
             if (colDiff != 0 || Math.abs(rowDiff) > 2)    // if moving sideways or more than two spaces return false
                 return false;
-            Boolean initialSpace = move.getRow0() != 2 && !white || move.getRow0() != 6 && white;
-            if (Math.abs(rowDiff) > 1 && initialSpace) // if moving more than one space
+            boolean isInitialSpace = (move.getRow0() == 1 && !white) || (move.getRow0() == 6 && white);
+            if (Math.abs(rowDiff) > 1 && !isInitialSpace) // if moving more than one space
                 return false;
+
         } else { // capturing
             if (Math.abs(colDiff) != 1 && Math.abs(rowDiff) != 1) {
                 return false;
