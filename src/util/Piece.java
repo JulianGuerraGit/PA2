@@ -11,6 +11,7 @@ public class Piece {
         Piece captured = game.getPiece(move.getRow1(), move.getCol1());
         if (captured != null && captured.white == this.white)//a piece can't capture a piece of the same color
             return false;
+        //return !(move.getRow1() == move.getRow0() && move.getCol1() == move.getCol0());
         return true;
     }
 
