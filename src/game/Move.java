@@ -21,7 +21,7 @@ public class Move {
         return col1;
     }
 
-    public Move(String move) {//move: "b2c4 or f2f7, etc
+    public Move(String move) {//move: b2c4 or f2f7, etc
         assert (move.length() == 4);
         this.move = move;
         row0 = 8 - move.charAt(1) + '0';

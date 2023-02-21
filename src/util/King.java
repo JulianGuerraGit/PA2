@@ -3,7 +3,6 @@ package util;
 import game.*;
 
 public class King extends Piece {
-
     public King(boolean white) {
         super(white);
     }
@@ -15,7 +14,7 @@ public class King extends Piece {
         //rules for king only!
         int rowDiff = move.getRow1() - move.getRow0();
         int colDiff = move.getCol1() - move.getCol0();
-        return !(Math.abs(colDiff) > 1 || Math.abs(rowDiff) > 1);
+        return Math.abs(colDiff) <= 1 && Math.abs(rowDiff) <= 1;
     }
 
     @Override

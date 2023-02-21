@@ -26,6 +26,10 @@ public class Game {
         return player2;
     }
 
+    public ArrayList<Move> getMoves() {
+        return moves;
+    }
+
     public Game(String player1, String player2) {//sets up the pieces on the board, initializes player's names.
         this.player1 = player1;
         this.player2 = player2;
@@ -55,11 +59,27 @@ public class Game {
         }
     }
 
-    public boolean move(Move move) {//makes a move, returns true if successful, false otherwise.
-        Square src = board[move.getRow0()][move.getCol0()], dst = board[move.getRow1()][move.getCol1()];
-        if (src.getOccupant() == null ||//empty src square
-                !board[move.getRow0()][move.getCol0()].getOccupant().isLegal(move, this))//illegal move
+    public Game(String player1, String player2, ArrayList<Move> moves) {
+        this(player1,player2);
+        for( Move move : moves){
+            move(move,true);
+        }
+    }
+
+    public boolean undoMove() {
+        if (moves.size() == 0)
             return false;
+        moves.remove(moves.size()-1);
+        return true;
+    }
+
+    public boolean move(Move move, boolean capture) {//makes a move, returns true if successful, false otherwise.
+        Square src = board[move.getRow0()][move.getCol0()], dst = board[move.getRow1()][move.getCol1()];
+        if (src.getOccupant() == null   //empty src square
+                || (dst.getOccupant() != null && !capture) // or if destination is not empty && it is not a capture move
+                || !board[move.getRow0()][move.getCol0()].getOccupant().isLegal(move, this))// or if the move is illegal
+            return false;
+
         moves.add(move);
         dst.setOccupant(src.getOccupant());
         src.setOccupant(null);
@@ -79,7 +99,7 @@ public class Game {
                     stream.print(8 - row);
                 else if (getPiece(row, col) != null)
                     stream.print(getPiece(row, col));
-                stream.print(col == -1 ? "\t" : col != 7 ? "\t" : row != 7 ? "\n" : "\n");
+                stream.print(col == -1 ? "\t" : col != 7 ? "\t" : "\n");
             }
         }
         stream.println("______________________________________\n" + player1);
