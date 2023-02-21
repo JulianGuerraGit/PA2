@@ -77,7 +77,7 @@ public class Game {
         Square src = board[move.getRow0()][move.getCol0()], dst = board[move.getRow1()][move.getCol1()];
         if (src.getOccupant() == null   //empty src square
                 || (dst.getOccupant() != null && !capture) // or if destination is not empty && it is not a capture move
-                || !board[move.getRow0()][move.getCol0()].getOccupant().isLegal(move, this))// or if the move is illegal
+                || !src.getOccupant().isLegal(move, this))// or if the move is illegal
             return false;
 
         moves.add(move);
